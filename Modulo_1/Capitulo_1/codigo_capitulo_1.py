@@ -24,50 +24,27 @@ print(decide_action('situação C'))  # Saída: ação padrão
 
 #####################################################################################
 
-# Exemplo de Perceptron Simples
+# Exemplo simples de um chatbot para simular o Teste de Turing
+def turing_test():
+    print("Chatbot: Olá! Como posso ajudá-lo hoje?")
+    while True:
+        user_input = input("Você: ")
+        if "olá" in user_input.lower() or "oi" in user_input.lower():
+            print("Chatbot: Olá! Como você está?")
+        elif "tchau" in user_input.lower() or "adeus" in user_input.lower():
+            print("Chatbot: Até logo! Tenha um ótimo dia!")
+            break
+        elif "nome" in user_input.lower():
+            print("Chatbot: Eu sou um chatbot. E você, como se chama?")
+        elif "tempo" in user_input.lower():
+            print("Chatbot: Eu sou apenas um programa, não sei como está o tempo.")
+        elif "você é um robô" in user_input.lower() or "você é humano" in user_input.lower():
+            print("Chatbot: Eu sou um chatbot, um programa de computador criado para conversar com você.")
+        else:
+            print("Chatbot: Desculpe, não entendi. Pode repetir?")
 
-# Importando a biblioteca numpy para operações matemáticas
-import numpy as np
-
-# Definindo a função de ativação step_function.
-# Esta função retorna 1 se a entrada for maior ou igual a 0, caso contrário retorna 0.
-def step_function(x):
-    return 1 if x >= 0 else 0
-
-# Definindo a classe Perceptron, que representa um neurônio simples.
-class Perceptron:
-    def __init__(self, input_size, learning_rate=0.1):
-        # Inicializa os pesos com zeros. Adicionamos 1 ao input_size para incluir o bias.
-        self.weights = np.zeros(input_size + 1)
-        self.learning_rate = learning_rate
-
-    # Método para fazer previsões com o perceptron.
-    def predict(self, x):
-        # Calcula o produto escalar dos pesos e das entradas, adicionando o bias.
-        z = self.weights.T.dot(np.insert(x, 0, 1))
-        # Aplica a função de ativação.
-        return step_function(z)
-
-    # Método para treinar o perceptron.
-    def train(self, X, y, epochs=10):
-        # Treina o perceptron ajustando os pesos com base nos erros de previsão.
-        for _ in range(epochs):
-            for i in range(len(y)):
-                prediction = self.predict(X[i])
-                self.weights += self.learning_rate * (y[i] - prediction) * np.insert(X[i], 0, 1)
-
-# Dados de treinamento para a função OR
-X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-y = np.array([0, 1, 1, 1])  # Saída esperada da função OR
-
-# Criando e treinando o perceptron
-perceptron = Perceptron(input_size=2)
-perceptron.train(X, y, epochs=10)
-
-# Testando o perceptron com os dados de treinamento
-print("Testando o Perceptron para a função OR:")
-for x in X:
-    print(f"{x}: {perceptron.predict(x)}")
+# Executar o teste de Turing simples
+turing_test()
 
 #####################################################################################
 

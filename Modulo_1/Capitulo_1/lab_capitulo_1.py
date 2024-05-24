@@ -9,9 +9,10 @@
 # - Se o risco for 'baixo', a ação deve ser 'prosseguir'.
 
 # Exercício 2:
-# Implementar um Perceptron para a função lógica OR.
-# - Treine o Perceptron com dados de treinamento para a função OR.
-# - Teste o Perceptron com todos os possíveis valores de entrada (0, 0), (0, 1), (1, 0), (1, 1).
+# Reprogramação do exemplo prático de chatbot
+# - Utilize como referência o exemplo prático do Teste de Turing do livro.
+# - Reprograme o chatbot para que todas as respostas sejam de uma única palavra.
+# - Teste o chatbot com diferentes entradas e verifique se as respostas fazem sentido.
 
 # Estudo de Caso:
 # Criar um modelo de classificação para prever se um paciente está 'saudável' ou 'doente' com base em características como idade, pressão arterial e colesterol.
@@ -88,41 +89,31 @@ riscos = ['alto', 'médio', 'baixo', 'desconhecido']
 for risco in riscos:
     print(f"Risco: {risco} - Ação: {decidir_acao(risco)}")
 
-# Exercício 2: Perceptron para Função Lógica OR
-import numpy as np
+###############################################
 
-# Definindo a função de ativação
-def step_function(x):
-    return 1 if x >= 0 else 0
+# Exercício 2: Versão do chatbot que responde apenas com uma palavra
+def turing_test_one_word():
+    print("Chatbot: Olá! Como posso ajudá-lo hoje?")
+    while True:
+        user_input = input("Você: ")
+        if "olá" in user_input.lower() or "oi" in user_input.lower():
+            print("Chatbot: Oi.")
+        elif "tchau" in user_input.lower() or "adeus" in user_input.lower():
+            print("Chatbot: Tchau!")
+            break
+        elif "nome" in user_input.lower():
+            print("Chatbot: Chatbot.")
+        elif "tempo" in user_input.lower():
+            print("Chatbot: Desconheço.")
+        elif "você é um robô" in user_input.lower() or "você é humano" in user_input.lower():
+            print("Chatbot: Humano.")
+        else:
+            print("Chatbot: Repita.")
 
-# Classe que representa um Perceptron
-class Perceptron:
-    def __init__(self, input_size, learning_rate=0.1):
-        self.weights = np.zeros(input_size + 1)  # Inicializa os pesos
-        self.learning_rate = learning_rate
+# Executar o chatbot para teste
+turing_test_one_word()
 
-    def predict(self, x):
-        z = self.weights.T.dot(np.insert(x, 0, 1))  # Produto escalar
-        return step_function(z)  # Aplica a função de ativação
-
-    def train(self, X, y, epochs=10):
-        for _ in range(epochs):
-            for i in range(len(y)):
-                prediction = self.predict(X[i])
-                self.weights += self.learning_rate * (y[i] - prediction) * np.insert(X[i], 0, 1)  # Ajusta os pesos
-
-# Dados de treinamento para a função OR
-X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-y = np.array([0, 1, 1, 1])  # Saídas esperadas
-
-# Criando e treinando o Perceptron
-perceptron = Perceptron(input_size=2)
-perceptron.train(X, y, epochs=10)
-
-# Testando o Perceptron com os dados de treinamento
-print("Testando o Perceptron para a função OR:")
-for x in X:
-    print(f"{x}: {perceptron.predict(x)}")
+###############################################################
 
 # Estudo de Caso: Modelo de Classificação com Árvore de Decisão
 from sklearn.tree import DecisionTreeClassifier
